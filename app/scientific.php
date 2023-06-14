@@ -1,12 +1,13 @@
 <?php
 require("Calculator.php");
+require("ScientificCalculator.php");
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $first_number = $_POST['first_number'] ?? 0;
     $second_number = $_POST['second_number'] ?? 0;
     $operation = $_POST['operation'] ?? '';
 
-    $calculator = new Calculator();
+    $calculator = new ScientificCalculator();
 
     switch ($operation) {
         case '+':
@@ -20,6 +21,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             break;
         case '/':
             $result = $calculator->divide($first_number, $second_number);
+            break;
+        case '^':
+            $result = $calculator->power($first_number, $second_number);
             break;
     }
 }
@@ -35,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <select name="operation">
             <?php
             # Set an array of operators we allow, just to make selecting the chosen one easier
-            $operators = ['+', '-', 'X', '/'];
+            $operators = ['+', '-', 'X', '/', '^'];
 
             # Loop through the array
             $operation = $_POST['operation'] ?? '';
@@ -55,5 +59,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <input type="submit" value="=" />
         <input type="number" name="result" value="<?php echo $result ?? '' ?>" readonly="readonly" />
     </form>
-    <a href="scientific.php">Scientific calculator</a>
+    <a href="index.php">Back to basic calculator</a>
 </body>

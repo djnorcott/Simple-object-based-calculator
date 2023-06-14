@@ -1,20 +1,25 @@
 <?php
+require("Calculator.php");
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $first_number = $_POST['first_number'] ?? 0;
     $second_number = $_POST['second_number'] ?? 0;
     $operation = $_POST['operation'] ?? '';
+
+    $calculator = new Calculator();
+
     switch ($operation) {
         case '+':
-            $result = $first_number + $second_number;
+            $result = $calculator->add($first_number, $second_number);
             break;
         case '-':
-            $result = $first_number - $second_number;
+            $result = $calculator->subtract($first_number, $second_number);
             break;
         case 'X':
-            $result = $first_number * $second_number;
+            $result = $calculator->multiply($first_number, $second_number);
             break;
         case '/':
-            $result = $first_number / $second_number;
+            $result = $calculator->divide($first_number, $second_number);
             break;
     }
 }
